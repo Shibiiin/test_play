@@ -1,25 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
-import 'package:untitled/routes/App_routes.dart';
-import 'package:untitled/routes/app_pages.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled/app.dart';
+import 'package:untitled/controller/controller.dart';
 import 'package:upgrader/upgrader.dart';
 
-void main()async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Upgrader.clearSavedSettings();
-  runApp(MyApp());
-}
 
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialRoute: AppPages.splash,
-      getPages: AppRoutes.routes,
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TaskController(),
+      child: MyApp(),
+    ),
+  );
 }

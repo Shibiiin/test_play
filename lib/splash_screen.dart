@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled/upgrade_widget.dart';
+import 'package:untitled/dashBoard_page.dart';
 
 class MySplashScreen extends StatefulWidget {
   @override
@@ -53,8 +53,8 @@ class _MySplashScreenState extends State<MySplashScreen>
 
     Timer(const Duration(seconds: 4), () {
       setState(() {
-        // Navigator.pushReplacement(context, PageTransition(LoginPage(title: 'Login',)));
-        Navigator.pushReplacement(context, PageTransition(UpgradingWidget()));
+        Navigator.pushReplacement(context, PageTransition(DashBoard()));
+        // Navigator.pushReplacement(context, PageTransition(const UpgradingWidget()));
       });
     });
   }
@@ -71,11 +71,11 @@ class _MySplashScreenState extends State<MySplashScreen>
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor:const Color(0xFF0E1AB7),
+      backgroundColor: const Color(0xFF0E1AB7),
       body: Stack(
         children: [
           Container(
-            decoration:  const BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: aquaGradients,
                   begin: Alignment.center,
@@ -97,7 +97,7 @@ class _MySplashScreenState extends State<MySplashScreen>
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: MediaQuery.of(context).size.width*0.045,
+                    fontSize: MediaQuery.of(context).size.width * 0.045,
                   ),
                 ),
               ),
@@ -109,10 +109,10 @@ class _MySplashScreenState extends State<MySplashScreen>
               curve: Curves.fastLinearToSlowEaseIn,
               opacity: containerOpacity,
               child: AnimatedContainer(
-                  duration: const Duration(seconds:5 ),
+                  duration: const Duration(seconds: 5),
                   curve: Curves.fastLinearToSlowEaseIn,
                   height: height * 0.4,
-                  width: width  *0.65,
+                  width: width * 0.65,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.transparent,
@@ -131,13 +131,12 @@ class _MySplashScreenState extends State<MySplashScreen>
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           //fontSize: animation1?.value,
-                          fontSize: MediaQuery.of(context).size.width*0.040,
+                          fontSize: MediaQuery.of(context).size.width * 0.040,
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ],
-                  )
-              ),
+                  )),
             ),
           ),
         ],
@@ -151,23 +150,23 @@ class PageTransition extends PageRouteBuilder {
 
   PageTransition(this.page)
       : super(
-    pageBuilder: (context, animation, anotherAnimation) => page,
-    transitionDuration: const Duration(seconds: 5),
-    transitionsBuilder: (context, animation, anotherAnimation, child) {
-      animation = CurvedAnimation(
-        curve: Curves.fastLinearToSlowEaseIn,
-        parent: animation,
-      );
-      return Align(
-        alignment: Alignment.bottomCenter,
-        child: SizeTransition(
-          sizeFactor: animation,
-          child: page,
-          axisAlignment: 0,
-        ),
-      );
-    },
-  );
+          pageBuilder: (context, animation, anotherAnimation) => page,
+          transitionDuration: const Duration(seconds: 5),
+          transitionsBuilder: (context, animation, anotherAnimation, child) {
+            animation = CurvedAnimation(
+              curve: Curves.fastLinearToSlowEaseIn,
+              parent: animation,
+            );
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: SizeTransition(
+                sizeFactor: animation,
+                child: page,
+                axisAlignment: 0,
+              ),
+            );
+          },
+        );
 }
 
 const List<Color> aquaGradients = [
